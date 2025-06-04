@@ -26,6 +26,7 @@ The tool now generates a more complete project structure:
 ├── .gitignore
 ├── data/
 ├── models/
+├── tests/
 ├── src/
 │   ├── train.py
 │   └── augmentations.py (optional)

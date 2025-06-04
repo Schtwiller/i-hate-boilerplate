@@ -23,8 +23,8 @@ def generate_project(
 
     project_path = Path(name)
 
-    # Basic directories
-    for sub in ["data", "models", "src", "configs"]:
+    # Basic directories for any project
+    for sub in ["data", "models", "src", "configs", "tests"]:
         (project_path / sub).mkdir(parents=True, exist_ok=True)
 
     # README
@@ -39,11 +39,33 @@ def generate_project(
     train_file = project_path / "src" / "train.py"
     if framework == "pytorch":
         train_file.write_text(
-            """import torch\n\n\ndef main():\n    pass  # TODO: implement training\n\n\nif __name__ == '__main__':\n    main()\n"""
+            """import torch
+
+# Load your dataset here
+# model = MyCoolModel()
+
+def main():
+    # Write your training loop here
+    pass
+
+if __name__ == '__main__':
+    main()
+"""
         )
     else:
         train_file.write_text(
-            """import tensorflow as tf\n\n\ndef main():\n    pass  # TODO: implement training\n\n\nif __name__ == '__main__':\n    main()\n"""
+            """import tensorflow as tf
+
+# Load your dataset here
+# model = MyCoolModel()
+
+def main():
+    # Write your training loop here
+    pass
+
+if __name__ == '__main__':
+    main()
+"""
         )
 
     # Config file
@@ -81,6 +103,14 @@ def generate_project(
 
     if venv:
         subprocess.run([sys.executable, "-m", "venv", "venv"], cwd=project_path)
+
+    # Basic test stub so users can start writing tests immediately
+    test_file = project_path / "tests" / "test_train.py"
+    test_file.write_text(
+        "def test_placeholder():\n"
+        "    \"\"\"Example test. Replace with your own.\"\"\"\n"
+        "    assert True\n"
+    )
 
 
 @app.command()
